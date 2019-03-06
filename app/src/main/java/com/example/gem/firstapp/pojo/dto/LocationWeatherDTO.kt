@@ -7,7 +7,7 @@ class LocationWeatherDTO {
     var coord: CoordDTO? = null
 
     @SerializedName("weather")
-    var weather: WeatherDTO? = null
+    var weathers: MutableList<WeatherDTO>? = null
 
     @SerializedName("base")
     var base: String? = null

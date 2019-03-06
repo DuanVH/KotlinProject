@@ -1,7 +1,8 @@
-package com.example.gem.firstapp
+package com.example.gem.firstapp.ui.home
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.gem.firstapp.R
 
 class MainActivity : AppCompatActivity() {
 

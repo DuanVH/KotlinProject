@@ -3,6 +3,7 @@ package com.example.gem.firstapp.pojo.model
 import android.os.Parcel
 import android.os.Parcelable
 import com.example.gem.firstapp.pojo.dto.LocationWeatherDTO
+import com.example.gem.firstapp.pojo.dto.WeatherDTO
 
 class LocationWeatherModel : Parcelable {
     private var coord: CoordModel?
@@ -13,12 +14,12 @@ class LocationWeatherModel : Parcelable {
             this.coord = value
         }
 
-    private var weather: WeatherModel?
+    private var weathers: MutableList<WeatherModel>?
         get() {
-            return weather
+            return weathers
         }
         set(value) {
-            this.weather = value
+            this.weathers = value
         }
 
     private var base: String?
@@ -102,24 +103,39 @@ class LocationWeatherModel : Parcelable {
         }
 
     protected constructor(parcel: Parcel) {
-
+        coord = parcel.readParcelable(CoordModel.javaClass.classLoader)
+        weathers = parcel.createTypedArrayList(WeatherModel.CREATOR)
+        base = parcel.readString()
+        main = parcel.readParcelable(MainModel.javaClass.classLoader)
+        visibility = parcel.readLong()
+        wind = parcel.readParcelable(WindModel.javaClass.classLoader)
+        clouds = parcel.readParcelable(CloudsModel.javaClass.classLoader)
+        dt = parcel.readLong()
+        sys = parcel.readParcelable(SysModel.javaClass.classLoader)
+        id = parcel.readLong()
+        name = parcel.readString()
+        cod = parcel.readInt()
     }
 
     constructor() {
         coord = CoordModel()
-        weather = WeatherModel()
+        weathers = mutableListOf()
         main = MainModel()
         wind = WindModel()
         clouds = CloudsModel()
         sys = SysModel()
     }
 
-    private fun convert(dto: LocationWeatherDTO) {
+    fun convert(dto: LocationWeatherDTO) {
         if (dto.coord != null)
             coord!!.convert(dto.coord!!)
 
-        if (dto.weather != null)
-            weather!!.convert(dto.weather!!)
+        if (dto.weathers != null && !dto.weathers!!.isEmpty())
+            for (item in dto.weathers!!) {
+                var w: WeatherModel = WeatherModel()
+                w.convert(item)
+                weathers!!.add(w)
+            }
 
         base = dto.base
 
@@ -144,11 +160,21 @@ class LocationWeatherModel : Parcelable {
         name = dto.name
 
         cod = dto.cod
-
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-
+        parcel.writeParcelable(coord, flags)
+        parcel.writeTypedList(weathers)
+        parcel.writeString(base)
+        parcel.writeParcelable(main, flags)
+        parcel.writeLong(visibility!!)
+        parcel.writeParcelable(wind, flags)
+        parcel.writeParcelable(clouds, flags)
+        parcel.writeLong(dt!!)
+        parcel.writeParcelable(sys, flags)
+        parcel.writeLong(id!!)
+        parcel.writeString(name)
+        parcel.writeInt(cod!!)
     }
 
     override fun describeContents(): Int {
