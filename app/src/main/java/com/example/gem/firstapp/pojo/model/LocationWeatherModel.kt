@@ -3,104 +3,103 @@ package com.example.gem.firstapp.pojo.model
 import android.os.Parcel
 import android.os.Parcelable
 import com.example.gem.firstapp.pojo.dto.LocationWeatherDTO
-import com.example.gem.firstapp.pojo.dto.WeatherDTO
 
 class LocationWeatherModel : Parcelable {
-    private var coord: CoordModel?
-        get() {
-            return coord
-        }
-        set(value) {
-            this.coord = value
-        }
+    private var coord: CoordModel
+//        get() {
+//            return coord
+//        }
+//        set(value) {
+//            this.coord = value
+//        }
 
-    private var weathers: MutableList<WeatherModel>?
-        get() {
-            return weathers
-        }
-        set(value) {
-            this.weathers = value
-        }
+    private var weathers: MutableList<WeatherModel>
+//        get() {
+//            return weathers
+//        }
+//        set(value) {
+//            this.weathers = value
+//        }
 
-    private var base: String?
-        get() {
-            return base
-        }
-        set(value) {
-            this.base = value
-        }
+    private var base: String? = null
+//        get() {
+//            return base
+//        }
+//        set(value) {
+//            this.base = value
+//        }
 
-    private var main: MainModel?
-        get() {
-            return main
-        }
-        set(value) {
-            this.main = value
-        }
+    private var main: MainModel
+//        get() {
+//            return main
+//        }
+//        set(value) {
+//            this.main = value
+//        }
 
-    private var visibility: Long?
-        get() {
-            return visibility
-        }
-        set(value) {
-            this.visibility = value
-        }
+    private var visibility: Long? = null
+//        get() {
+//            return visibility
+//        }
+//        set(value) {
+//            this.visibility = value
+//        }
 
-    private var wind: WindModel?
-        get() {
-            return wind
-        }
-        set(value) {
-            this.wind = value
-        }
+    private var wind: WindModel
+//        get() {
+//            return wind
+//        }
+//        set(value) {
+//            this.wind = value
+//        }
 
-    private var clouds: CloudsModel?
-        get() {
-            return clouds
-        }
-        set(value) {
-            this.clouds = value
-        }
+    private var clouds: CloudsModel
+//        get() {
+//            return clouds
+//        }
+//        set(value) {
+//            this.clouds = value
+//        }
 
-    private var dt: Long?
-        get() {
-            return dt
-        }
-        set(value) {
-            this.dt = value
-        }
+    private var dt: Long? = null
+//        get() {
+//            return dt
+//        }
+//        set(value) {
+//            this.dt = value
+//        }
 
-    private var sys: SysModel?
-        get() {
-            return sys
-        }
-        set(value) {
-            this.sys = value
-        }
+    private var sys: SysModel
+//        get() {
+//            return sys
+//        }
+//        set(value) {
+//            this.sys = value
+//        }
 
-    private var id: Long?
-        get() {
-            return id
-        }
-        set(value) {
-            this.id = id
-        }
+    private var id: Long? = null
+//        get() {
+//            return id
+//        }
+//        set(value) {
+//            this.id = id
+//        }
 
-    private var name: String?
-        get() {
-            return name
-        }
-        set(value) {
-            this.name = value
-        }
+    private var name: String? = null
+//        get() {
+//            return name
+//        }
+//        set(value) {
+//            this.name = value
+//        }
 
-    private var cod: Int?
-        get() {
-            return cod
-        }
-        set(value) {
-            this.cod = value
-        }
+    private var cod: Int? = null
+//        get() {
+//            return cod
+//        }
+//        set(value) {
+//            this.cod = value
+//        }
 
     protected constructor(parcel: Parcel) {
         coord = parcel.readParcelable(CoordModel.javaClass.classLoader)
@@ -137,12 +136,12 @@ class LocationWeatherModel : Parcelable {
                 weathers!!.add(w)
             }
 
-        base = dto.base
+        base = dto.base!!
 
         if (dto.main != null)
             main!!.convert(dto.main!!)
 
-        visibility = dto.visibility
+        visibility = dto.visibility!!
 
         if (dto.wind != null)
             wind!!.convert(dto.wind!!)
@@ -150,16 +149,16 @@ class LocationWeatherModel : Parcelable {
         if (dto.clouds != null)
             clouds!!.convert(dto.clouds!!)
 
-        dt = dto.dt
+        dt = dto.dt!!
 
         if (dto.sys != null)
             sys!!.convert(dto.sys!!)
 
-        id = dto.id
+        id = dto.id!!
 
-        name = dto.name
+        name = dto.name!!
 
-        cod = dto.cod
+        cod = dto.cod!!
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -189,5 +188,13 @@ class LocationWeatherModel : Parcelable {
         override fun newArray(size: Int): Array<LocationWeatherModel?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun getCoord(): CoordModel {
+        return coord
+    }
+
+    fun getWeather(): List<WeatherModel> {
+        return weathers
     }
 }

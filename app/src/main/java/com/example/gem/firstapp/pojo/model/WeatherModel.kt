@@ -6,37 +6,37 @@ import com.example.gem.firstapp.pojo.dto.WeatherDTO
 
 class WeatherModel : Parcelable {
 
-    private var id: Int?
-        get() {
-            return id
-        }
-        set(value) {
-            this.id = value
-        }
+    private var id: Int? = null
+//        get() {
+//            return id
+//        }
+//        set(value) {
+//            this.id = value
+//        }
 
-    private var main: String?
-        get() {
-            return main
-        }
-        set(value) {
-            this.main = value
-        }
+    private var main: String? = null
+//        get() {
+//            return main
+//        }
+//        set(value) {
+//            this.main = value
+//        }
 
-    private var description: String?
-        get() {
-            return description
-        }
-        set(value) {
-            this.description = value
-        }
+    private var description: String? = null
+//        get() {
+//            return description
+//        }
+//        set(value) {
+//            this.description = value
+//        }
 
-    private var icon: String?
-        get() {
-            return icon
-        }
-        set(value) {
-            this.icon = value
-        }
+    private var icon: String? = null
+//        get() {
+//            return icon
+//        }
+//        set(value) {
+//            this.icon = value
+//        }
 
     protected constructor(parcel: Parcel) {
         this.id = parcel.readInt()

@@ -5,13 +5,7 @@ import android.os.Parcelable
 import com.example.gem.firstapp.pojo.dto.CloudsDTO
 
 class CloudsModel : Parcelable {
-    private var all: Int?
-        get() {
-            return all
-        }
-        set(value) {
-            this.all = value
-        }
+    private var all: Int? = null
 
     protected constructor(parcel: Parcel) {
         this.all = parcel.readInt()
@@ -39,5 +33,13 @@ class CloudsModel : Parcelable {
         override fun newArray(size: Int): Array<CloudsModel?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun getAll(): Int {
+        return all!!
+    }
+
+    fun setAll(all: Int) {
+        this.all = all
     }
 }

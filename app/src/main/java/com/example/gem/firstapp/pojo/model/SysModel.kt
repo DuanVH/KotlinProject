@@ -5,53 +5,53 @@ import android.os.Parcelable
 import com.example.gem.firstapp.pojo.dto.SysDTO
 
 class SysModel : Parcelable {
-    private var type: Int?
-        get() {
-            return type
-        }
-        set(value) {
-            this.type = value
-        }
+    private var type: Int? = null
+//        get() {
+//            return type
+//        }
+//        set(value) {
+//            this.type = value
+//        }
 
-    private var id: Long?
-        get() {
-            return id
-        }
-        set(value) {
-            this.id = value
-        }
+    private var id: Long? = null
+//        get() {
+//            return id
+//        }
+//        set(value) {
+//            this.id = value
+//        }
 
-    private var message: Double?
-        get() {
-            return message
-        }
-        set(value) {
-            this.message = value
-        }
+    private var message: Double? = null
+//        get() {
+//            return message
+//        }
+//        set(value) {
+//            this.message = value
+//        }
 
-    private var country: String?
-        get() {
-            return country
-        }
-        set(value) {
-            this.country = value
-        }
+    private var country: String? = null
+//        get() {
+//            return country
+//        }
+//        set(value) {
+//            this.country = value
+//        }
 
-    private var sunrise: Long?
-        get() {
-            return sunrise
-        }
-        set(value) {
-            this.sunrise = value
-        }
+    private var sunrise: Long? = null
+//        get() {
+//            return sunrise
+//        }
+//        set(value) {
+//            this.sunrise = value
+//        }
 
-    private var sunset: Long?
-        get() {
-            return sunset
-        }
-        set(value) {
-            this.sunset = value
-        }
+    private var sunset: Long? = null
+//        get() {
+//            return sunset
+//        }
+//        set(value) {
+//            this.sunset = value
+//        }
 
     constructor(parcel: Parcel) {
         this.type = parcel.readInt()

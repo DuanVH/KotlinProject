@@ -6,22 +6,8 @@ import com.example.gem.firstapp.pojo.dto.CoordDTO
 
 class CoordModel : Parcelable {
 
-    private var lon: Double?
-        get() {
-            return lon
-        }
-        set(value) {
-            this.lon = value
-        }
-
-    private var lat: Double?
-        get() {
-            return lat
-        }
-        set(value) {
-            this.lat = value
-        }
-
+    private var lon: Double? = null
+    private var lat: Double? = null
 
     constructor() {}
 
@@ -54,4 +40,11 @@ class CoordModel : Parcelable {
         }
     }
 
+    fun getLat(): Double {
+        return lat!!
+    }
+
+    fun getLon(): Double {
+        return lon!!
+    }
 }

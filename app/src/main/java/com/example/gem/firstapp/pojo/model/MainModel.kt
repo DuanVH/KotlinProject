@@ -5,45 +5,45 @@ import android.os.Parcelable
 import com.example.gem.firstapp.pojo.dto.MainDTO
 
 class MainModel : Parcelable {
-    private var temp: Double?
-        get() {
-            return temp
-        }
-        set(value) {
-            this.temp = value
-        }
+    private var temp: Double? = null
+//        get() {
+//            return temp
+//        }
+//        set(value) {
+//            this.temp = value
+//        }
 
-    private var pressure: Long?
-        get() {
-            return pressure
-        }
-        set(value) {
-            this.pressure = pressure
-        }
+    private var pressure: Long? = null
+//        get() {
+//            return pressure
+//        }
+//        set(value) {
+//            this.pressure = pressure
+//        }
 
-    private var humidity: Int?
-        get() {
-            return humidity
-        }
-        set(value) {
-            this.humidity = value
-        }
+    private var humidity: Int? = null
+//        get() {
+//            return humidity
+//        }
+//        set(value) {
+//            this.humidity = value
+//        }
 
-    private var tempMin: Double?
-        get() {
-            return tempMin
-        }
-        set(value) {
-            this.tempMin = value
-        }
+    private var tempMin: Double? = null
+//        get() {
+//            return tempMin
+//        }
+//        set(value) {
+//            this.tempMin = value
+//        }
 
-    private var tempMax: Double?
-        get() {
-            return tempMax
-        }
-        set(value) {
-            this.tempMax = value
-        }
+    private var tempMax: Double? = null
+//        get() {
+//            return tempMax
+//        }
+//        set(value) {
+//            this.tempMax = value
+//        }
 
     protected constructor(parcel: Parcel) {
         this.temp = parcel.readDouble()

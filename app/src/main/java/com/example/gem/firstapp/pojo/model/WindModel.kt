@@ -5,21 +5,21 @@ import android.os.Parcelable
 import com.example.gem.firstapp.pojo.dto.WindDTO
 
 class WindModel : Parcelable {
-    private var speed: Double?
-        get() {
-            return speed
-        }
-        set(value) {
-            this.speed = value
-        }
+    private var speed: Double? = null
+//        get() {
+//            return speed
+//        }
+//        set(value) {
+//            this.speed = value
+//        }
 
-    private var deg: Int?
-        get() {
-            return deg
-        }
-        set(value) {
-            this.deg = value
-        }
+    private var deg: Int? = null
+//        get() {
+//            return deg
+//        }
+//        set(value) {
+//            this.deg = value
+//        }
 
     protected constructor(parcel: Parcel) {
         this.speed = parcel.readDouble()
