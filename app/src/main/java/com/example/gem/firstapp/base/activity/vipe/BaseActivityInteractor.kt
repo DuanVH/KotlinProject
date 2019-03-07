@@ -1,12 +1,11 @@
 package com.example.gem.firstapp.base.activity.vipe
 
 import io.reactivex.disposables.Disposable
-import org.xml.sax.ErrorHandler
 
-abstract class BaseActivityInteractor<P> : BaseActivityContract.Interactor<P> {
+abstract class BaseActivityInteractor<P : ActivityContract.Presenter<*, *>> : ActivityContract.Interactor<P> {
 
     private var mPresenter: P? = null
-    private var mBaseActivityDisposables: List<Disposable>? = null
+    private var mBaseActivityDisposables: MutableList<Disposable>? = null
 
     constructor(mPresenter: P?) {
         this.mPresenter = mPresenter
@@ -14,15 +13,19 @@ abstract class BaseActivityInteractor<P> : BaseActivityContract.Interactor<P> {
     }
 
     override fun getPresenter(): P {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mPresenter!!
     }
 
     override fun addDisposable(disposable: Disposable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mBaseActivityDisposables!!.add(disposable)
     }
 
     override fun dispose() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (mBaseActivityDisposables != null && !mBaseActivityDisposables!!.isEmpty()) {
+            for (dis : Disposable in mBaseActivityDisposables!!)
+                if (!dis.isDisposed)
+                    dis.dispose()
+        }
     }
 
 //    protected fun handleError(throwable: Throwable, callback: ErrorHandler.ErrorHandlerCallback) {

@@ -6,100 +6,17 @@ import com.example.gem.firstapp.pojo.dto.LocationWeatherDTO
 
 class LocationWeatherModel : Parcelable {
     private var coord: CoordModel
-//        get() {
-//            return coord
-//        }
-//        set(value) {
-//            this.coord = value
-//        }
-
     private var weathers: MutableList<WeatherModel>
-//        get() {
-//            return weathers
-//        }
-//        set(value) {
-//            this.weathers = value
-//        }
-
     private var base: String? = null
-//        get() {
-//            return base
-//        }
-//        set(value) {
-//            this.base = value
-//        }
-
     private var main: MainModel
-//        get() {
-//            return main
-//        }
-//        set(value) {
-//            this.main = value
-//        }
-
     private var visibility: Long? = null
-//        get() {
-//            return visibility
-//        }
-//        set(value) {
-//            this.visibility = value
-//        }
-
     private var wind: WindModel
-//        get() {
-//            return wind
-//        }
-//        set(value) {
-//            this.wind = value
-//        }
-
     private var clouds: CloudsModel
-//        get() {
-//            return clouds
-//        }
-//        set(value) {
-//            this.clouds = value
-//        }
-
     private var dt: Long? = null
-//        get() {
-//            return dt
-//        }
-//        set(value) {
-//            this.dt = value
-//        }
-
     private var sys: SysModel
-//        get() {
-//            return sys
-//        }
-//        set(value) {
-//            this.sys = value
-//        }
-
     private var id: Long? = null
-//        get() {
-//            return id
-//        }
-//        set(value) {
-//            this.id = id
-//        }
-
     private var name: String? = null
-//        get() {
-//            return name
-//        }
-//        set(value) {
-//            this.name = value
-//        }
-
     private var cod: Int? = null
-//        get() {
-//            return cod
-//        }
-//        set(value) {
-//            this.cod = value
-//        }
 
     protected constructor(parcel: Parcel) {
         coord = parcel.readParcelable(CoordModel.javaClass.classLoader)
@@ -194,7 +111,95 @@ class LocationWeatherModel : Parcelable {
         return coord
     }
 
-    fun getWeather(): List<WeatherModel> {
+    fun setCoord(coord: CoordModel) {
+        this.coord = coord
+    }
+
+    fun getWeathers(): MutableList<WeatherModel> {
         return weathers
+    }
+
+    fun setWeathers(weathers: MutableList<WeatherModel>) {
+        this.weathers = weathers
+    }
+
+    fun getBase(): String {
+        return base!!
+    }
+
+    fun setBase(base: String) {
+        this.base = base
+    }
+
+    fun getMain(): MainModel {
+        return main
+    }
+
+    fun setMain(main: MainModel) {
+        this.main = main
+    }
+
+    fun getVisibility(): Long {
+        return visibility!!
+    }
+
+    fun setVisibility(visibility: Long) {
+        this.visibility = visibility
+    }
+
+    fun getWind(): WindModel {
+        return wind
+    }
+
+    fun setWind(wind: WindModel) {
+        this.wind = wind
+    }
+
+    fun getClouds(): CloudsModel {
+        return clouds
+    }
+
+    fun setClouds(clouds: CloudsModel) {
+        this.clouds = clouds
+    }
+
+    fun getDt(): Long {
+        return dt!!
+    }
+
+    fun setDt(dt: Long) {
+        this.dt = dt
+    }
+
+    fun getSys(): SysModel {
+        return sys
+    }
+
+    fun setSys(sys: SysModel) {
+        this.sys = sys
+    }
+
+    fun getId(): Long {
+        return id!!
+    }
+
+    fun setId(id: Long) {
+        this.id = id
+    }
+
+    fun getName(): String {
+        return name!!
+    }
+
+    fun setName(name: String) {
+        this.name = name
+    }
+
+    fun getCod(): Int {
+        return cod!!
+    }
+
+    fun setCod(cod: Int) {
+        this.cod = cod
     }
 }

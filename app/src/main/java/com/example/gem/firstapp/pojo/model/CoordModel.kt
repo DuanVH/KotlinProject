@@ -44,7 +44,15 @@ class CoordModel : Parcelable {
         return lat!!
     }
 
+    fun setLat(lat: Double) {
+        this.lat = lat
+    }
+
     fun getLon(): Double {
         return lon!!
+    }
+
+    fun setLon(lon: Double) {
+        this.lon = lon
     }
 }

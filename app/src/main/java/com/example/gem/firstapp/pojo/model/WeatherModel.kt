@@ -7,36 +7,9 @@ import com.example.gem.firstapp.pojo.dto.WeatherDTO
 class WeatherModel : Parcelable {
 
     private var id: Int? = null
-//        get() {
-//            return id
-//        }
-//        set(value) {
-//            this.id = value
-//        }
-
     private var main: String? = null
-//        get() {
-//            return main
-//        }
-//        set(value) {
-//            this.main = value
-//        }
-
     private var description: String? = null
-//        get() {
-//            return description
-//        }
-//        set(value) {
-//            this.description = value
-//        }
-
     private var icon: String? = null
-//        get() {
-//            return icon
-//        }
-//        set(value) {
-//            this.icon = value
-//        }
 
     protected constructor(parcel: Parcel) {
         this.id = parcel.readInt()
@@ -73,6 +46,38 @@ class WeatherModel : Parcelable {
         override fun newArray(size: Int): Array<WeatherModel?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun getId(): Int {
+        return id!!
+    }
+
+    fun setId(id: Int) {
+        this.id = id
+    }
+
+    fun getMain(): String {
+        return main!!
+    }
+
+    fun setMain(main: String) {
+        this.main = main
+    }
+
+    fun getDescription(): String {
+        return description!!
+    }
+
+    fun setDescription(description: String) {
+        this.description = description
+    }
+
+    fun getIcon(): String {
+        return icon!!
+    }
+
+    fun setIcon(icon: String) {
+        this.icon = icon
     }
 
 }

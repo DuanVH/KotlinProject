@@ -1,57 +1,17 @@
 package com.example.gem.firstapp.pojo.model
 
+import android.os.Message
 import android.os.Parcel
 import android.os.Parcelable
 import com.example.gem.firstapp.pojo.dto.SysDTO
 
 class SysModel : Parcelable {
     private var type: Int? = null
-//        get() {
-//            return type
-//        }
-//        set(value) {
-//            this.type = value
-//        }
-
     private var id: Long? = null
-//        get() {
-//            return id
-//        }
-//        set(value) {
-//            this.id = value
-//        }
-
     private var message: Double? = null
-//        get() {
-//            return message
-//        }
-//        set(value) {
-//            this.message = value
-//        }
-
     private var country: String? = null
-//        get() {
-//            return country
-//        }
-//        set(value) {
-//            this.country = value
-//        }
-
     private var sunrise: Long? = null
-//        get() {
-//            return sunrise
-//        }
-//        set(value) {
-//            this.sunrise = value
-//        }
-
     private var sunset: Long? = null
-//        get() {
-//            return sunset
-//        }
-//        set(value) {
-//            this.sunset = value
-//        }
 
     constructor(parcel: Parcel) {
         this.type = parcel.readInt()
@@ -94,5 +54,49 @@ class SysModel : Parcelable {
         override fun newArray(size: Int): Array<SysModel?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun getType(): Int {
+        return type!!
+    }
+
+    fun setType(type: Int) {
+        this.type = type
+    }
+
+    fun getId(): Long {
+        return id!!
+    }
+
+    fun getMessage(): Double {
+        return message!!
+    }
+
+    fun setMessage(message: Double) {
+        this.message = message
+    }
+
+    fun getCountry(): String {
+        return country!!
+    }
+
+    fun setCountry(country: String) {
+        this.country = country
+    }
+
+    fun getSunrise(): Long {
+        return sunrise!!
+    }
+
+    fun setSunrise(sunrise: Long) {
+        this.sunrise = sunrise
+    }
+
+    fun getSunset(): Long {
+        return sunset!!
+    }
+
+    fun setSunset(sunset: Long) {
+        this.sunset = sunset
     }
 }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.annotation.StringRes
 import io.reactivex.disposables.Disposable
 
-interface BaseActivityContract {
+interface ActivityContract {
 
     interface Interactor<P> {
 

@@ -6,20 +6,7 @@ import com.example.gem.firstapp.pojo.dto.WindDTO
 
 class WindModel : Parcelable {
     private var speed: Double? = null
-//        get() {
-//            return speed
-//        }
-//        set(value) {
-//            this.speed = value
-//        }
-
     private var deg: Int? = null
-//        get() {
-//            return deg
-//        }
-//        set(value) {
-//            this.deg = value
-//        }
 
     protected constructor(parcel: Parcel) {
         this.speed = parcel.readDouble()
@@ -52,5 +39,20 @@ class WindModel : Parcelable {
         }
     }
 
+    fun getSpeed(): Double {
+        return speed!!
+    }
+
+    fun setSpeed(speed: Double) {
+        this.speed = speed
+    }
+
+    fun getDeg(): Int {
+        return deg!!
+    }
+
+    fun setDeg(deg: Int) {
+        this.deg = deg
+    }
 
 }

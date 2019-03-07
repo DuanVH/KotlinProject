@@ -6,44 +6,10 @@ import com.example.gem.firstapp.pojo.dto.MainDTO
 
 class MainModel : Parcelable {
     private var temp: Double? = null
-//        get() {
-//            return temp
-//        }
-//        set(value) {
-//            this.temp = value
-//        }
-
     private var pressure: Long? = null
-//        get() {
-//            return pressure
-//        }
-//        set(value) {
-//            this.pressure = pressure
-//        }
-
     private var humidity: Int? = null
-//        get() {
-//            return humidity
-//        }
-//        set(value) {
-//            this.humidity = value
-//        }
-
     private var tempMin: Double? = null
-//        get() {
-//            return tempMin
-//        }
-//        set(value) {
-//            this.tempMin = value
-//        }
-
     private var tempMax: Double? = null
-//        get() {
-//            return tempMax
-//        }
-//        set(value) {
-//            this.tempMax = value
-//        }
 
     protected constructor(parcel: Parcel) {
         this.temp = parcel.readDouble()
@@ -83,5 +49,45 @@ class MainModel : Parcelable {
         override fun newArray(size: Int): Array<MainModel?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun getTemp(): Double {
+        return temp!!
+    }
+
+    fun setTemp(temp: Double) {
+        this.temp = temp
+    }
+
+    fun getPressure(): Long {
+        return pressure!!
+    }
+
+    fun setPressure(pressure: Long) {
+        this.pressure = pressure
+    }
+
+    fun getTempMin(): Double {
+        return tempMin!!
+    }
+
+    fun getHumidity(): Int {
+        return humidity!!
+    }
+
+    fun setHumidity(humidity: Int) {
+        this.humidity = humidity
+    }
+
+    fun setTempMin(tempMin: Double) {
+        this.tempMin = tempMin
+    }
+
+    fun getTempMax(): Double {
+        return tempMax!!
+    }
+
+    fun setTempMax(tempMax: Double) {
+        this.tempMax = tempMax
     }
 }
