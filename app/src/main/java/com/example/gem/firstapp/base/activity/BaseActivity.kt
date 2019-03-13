@@ -5,8 +5,15 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.View
+import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.Unbinder
+import com.example.gem.firstapp.pojo.dto.BusEvent
+import com.example.gem.firstapp.service.ConnectionHelper
+import com.example.gem.firstapp.utils.DialogUtils
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActivity, ActivityContract.View<P> {
 
@@ -34,27 +41,47 @@ abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActi
                 .add(getFragmentContainerId(), getFirstFragment())
                 .commit()
 
-//        mLoadingDialog = Di
+        mLoadingDialog = DialogUtils.createLoadingDialog(this);
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
+        if (hasFocus)
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    )
     }
 
     override fun onDestroy() {
+        mUnbinder!!.unbind()
+        if (getPresenter() != null)
+            getPresenter().dispose()
         super.onDestroy()
     }
 
     override fun onResume() {
         super.onResume()
+        notifyNetworkChanged()
     }
 
     override fun onStart() {
         super.onStart()
+        EventBus.getDefault().register(this)
     }
 
     override fun onStop() {
         super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(busEvent: BusEvent) {
+        if (busEvent.getType() == BusEvent.TYPE.CONNECTION_STATUS)
+            notifyNetworkChanged()
     }
 
     protected abstract fun getLayoutResId(): Int
@@ -64,7 +91,7 @@ abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActi
     protected abstract fun getFragmentContainerId(): Int
 
     override fun getPresenter(): P {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mPresenter!!
     }
 
     override fun initPresenter(): P {
@@ -72,22 +99,29 @@ abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActi
     }
 
     override fun showMessage(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun showMessage(stringResId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, stringResId, Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoadingDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (!mLoadingDialog!!.isShowing)
+            mLoadingDialog!!.show()
     }
 
     override fun dismissLoadingDialog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (mLoadingDialog != null && mLoadingDialog!!.isShowing)
+            mLoadingDialog!!.dismiss()
     }
 
     override fun notifyNetworkChanged() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (!ConnectionHelper.getInstance().isNotified()) {
+            if (!ConnectionHelper.getInstance().isOnLine()) {
+
+            }
+        }
     }
+
 }
