@@ -3,7 +3,6 @@ package com.example.gem.firstapp.ui.home
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.example.gem.firstapp.R
 import com.example.gem.firstapp.pojo.model.LocationWeatherModel
 import com.example.gem.firstapp.webservice.WebserviceBuilder
