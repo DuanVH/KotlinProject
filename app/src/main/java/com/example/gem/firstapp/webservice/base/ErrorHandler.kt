@@ -1,7 +1,16 @@
 package com.example.gem.firstapp.webservice.base
 
 import android.content.Context
+import android.os.Build
+import android.system.ErrnoException
+import com.example.gem.firstapp.utils.Logger
+import com.example.gem.firstapp.utils.NetworkUtils
 import com.example.gem.firstapp.webservice.WebserviceBuilder
+import retrofit2.HttpException
+import java.io.IOException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 class ErrorHandler {
 
@@ -26,9 +35,6 @@ class ErrorHandler {
     private var mCode = DEFAULT_CODE
     private var mMessage = DEFAULT_MESSAGE
 
-    constructor() {
-    }
-
     fun init(context: Context) {
         this.context = context
         DEFAULT_MESSAGE = "An error has just occurred. Please try again later."
@@ -43,14 +49,39 @@ class ErrorHandler {
         return mMessage
     }
 
-    fun handlerError(throwable: Throwable, callBacl: ErrorHandlerCallback) {
+    fun handlerError(throwable: Throwable, callback: ErrorHandlerCallback) {
         mCode = -1
-        // TODO
+        if (NetworkUtils.checkNetwork(context) == NetworkUtils.Companion.NetworkType.DISCONNECT) {
+            mMessage = "You are offline"
+            if (callback != null) callback.onNetworkFailed()
+        } else {
+            if (throwable is SocketTimeoutException ||
+                throwable is ConnectException ||
+                throwable is UnknownHostException || Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && throwable is ErrnoException
+            ) run {
+                mMessage = OFFLINE_MSG
+                if (callback != null) callback.onNetworkFailed()
+            } else {
+                if (throwable is HttpException) {
+                    var httpException: HttpException = throwable as HttpException
+                    try {
+
+                    } catch (e: IOException) {
+                        Logger.logException(e)
+                        mMessage = DEFAULT_MESSAGE
+                    } finally {
+                        if (callback != null) callback.onErrorResponse(mMessage)
+                    }
+                } else {
+                    mMessage = throwable.message!!
+                }
+                if (callback != null) callback.onErrorResponse(mMessage)
+            }
+        }
     }
 
-
     interface ErrorHandlerCallback {
-        fun onNetworKFailed()
+        fun onNetworkFailed()
 
         fun onErrorResponse(error: String)
     }

@@ -1,5 +1,6 @@
 package com.example.gem.firstapp.base.activity.vipe
 
+import com.example.gem.firstapp.webservice.base.ErrorHandler
 import io.reactivex.disposables.Disposable
 
 abstract class BaseActivityInteractor<P : ActivityContract.Presenter<*, *>> : ActivityContract.Interactor<P> {
@@ -28,9 +29,9 @@ abstract class BaseActivityInteractor<P : ActivityContract.Presenter<*, *>> : Ac
         }
     }
 
-//    protected fun handleError(throwable: Throwable, callback: ErrorHandler.ErrorHandlerCallback) {
-//        val errorHandle = ErrorHandler.getInstance()
-//        errorHandle.handleError(throwable, callback)
-//    }
+    protected fun handleError(throwable: Throwable, callback: ErrorHandler.ErrorHandlerCallback) {
+        val errorHandle = ErrorHandler.getInstance()
+        errorHandle.handlerError(throwable, callback)
+    }
 
 }

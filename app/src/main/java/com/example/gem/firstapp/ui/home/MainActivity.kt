@@ -1,9 +1,12 @@
 package com.example.gem.firstapp.ui.home
 
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.util.Log
 import com.example.gem.firstapp.R
+import com.example.gem.firstapp.base.activity.vipe.BaseActivity
 import com.example.gem.firstapp.pojo.model.LocationWeatherModel
 import com.example.gem.firstapp.webservice.WebserviceBuilder
 import com.example.gem.firstapp.webservice.weather.WeatherRepository
@@ -12,29 +15,29 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        WebserviceBuilder.getInstance().initServices()
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_main
+    }
 
-        WeatherRepository.fetchWeather(21.016864, 105.781938, "95d8bcfb1fad9da2047aaf1c22928d58")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object: SingleObserver<LocationWeatherModel> {
-                override fun onSuccess(t: LocationWeatherModel) {
-                    Log.e("DUAN_LOG", t.getCoord().toString())
-                }
+    override fun getFirstFragment(): Fragment? {
+        return null
+    }
 
-                override fun onSubscribe(d: Disposable) {
-                    // TODO
-                }
+    override fun getFragmentContainerId(): Int {
+        return 0
+    }
 
-                override fun onError(e: Throwable) {
-                    Log.e("DUAN_LOG", e.message)
-                }
+    override fun onCancel(dialog: DialogInterface?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-            })
+    override fun initPresenter(): MainContract.Presenter {
+        return MainPresenter()
+    }
+
+    override fun show() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

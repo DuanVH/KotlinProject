@@ -5,20 +5,75 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion '28.0.3'
+
     defaultConfig {
-        applicationId "com.example.gem.firstapp"
-        minSdkVersion 22
-        targetSdkVersion 28
+        applicationId "com.maboy.kotlinfirstapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+//            storeFile file("keystore/pamlo_keystore")
+//            storePassword '123456a@'
+//            keyAlias 'pamlo_android'
+//            keyPassword '123456a@'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    flavorDimensions "id"
+
+    productFlavors {
+        staging {
+            dimension "id"
+            applicationId "com.maboy.kotlinfirstapp"
+            buildConfigField 'String', 'BASE_URL', ''
+            buildConfigField 'String', 'HOST_ADDRESS', ''
+            buildConfigField 'Int', 'AR_EXPIRED_PERIOD', '1'
+        }
+        qa {
+            dimension "id"
+            applicationId "com.maboy.kotlinfirstapp"
+            buildConfigField 'String', 'BASE_URL', ''
+            buildConfigField 'String', 'HOST_ADDRESS', ''
+            buildConfigField 'Int', 'AR_EXPIRED_PERIOD', '1'
+            signingConfig signingConfigs.release
+        }
+        live {
+            dimension "id"
+            applicationId "com.maboy.kotlinfirstapp"
+            buildConfigField 'String', 'BASE_URL', ''
+            buildConfigField 'String', 'HOST_ADDRESS', ''
+            buildConfigField 'Int', 'AR_EXPIRED_PERIOD', '7'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize = "4g"
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -50,4 +105,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:11+'
     implementation 'com.google.android.gms:play-services-location:11.+'
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.android.support:multidex:1.0.2'
 }

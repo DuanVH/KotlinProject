@@ -1,6 +1,7 @@
 package com.example.gem.firstapp.base.activity.vipe
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -14,8 +15,14 @@ import com.example.gem.firstapp.utils.DialogUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.lang.Exception
 
-abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActivity, ActivityContract.View<P> {
+/*
+ * Created by maboy on April 22, 2019
+ */
+
+abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActivity(),
+    ActivityContract.View<P>, DialogInterface.OnCancelListener {
 
     companion object {
         private var TAG: String = "BaseActivity: "
@@ -25,7 +32,6 @@ abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActi
     private var mUnbinder: Unbinder? = null
     private var mLoadingDialog: Dialog? = null
 
-    constructor() : super()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +40,14 @@ abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActi
         mUnbinder = ButterKnife.bind(this)
 
         mPresenter = initPresenter()
-        mPresenter?.attachView(this as Nothing)
+//        mPresenter?.attachView(this)  // TODO ???
 
-        if (getFragmentContainerId() != 0 && getFirstFragment() != null)  /*getFirstFragment() != null is always true*/
+        if (getFragmentContainerId() != 0)  /*getFirstFragment() != null is always true*/
             supportFragmentManager.beginTransaction()
-                .add(getFragmentContainerId(), getFirstFragment())
+                .add(getFragmentContainerId(), getFirstFragment()!!)
                 .commit()
 
-        mLoadingDialog = DialogUtils.createLoadingDialog(this);
+        mLoadingDialog = DialogUtils.createLoadingDialog(this)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -58,8 +64,7 @@ abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActi
 
     override fun onDestroy() {
         mUnbinder!!.unbind()
-        if (getPresenter() != null)
-            getPresenter().dispose()
+        getPresenter().dispose()
         super.onDestroy()
     }
 
@@ -86,16 +91,12 @@ abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActi
 
     protected abstract fun getLayoutResId(): Int
 
-    protected abstract fun getFirstFragment(): Fragment
+    protected abstract fun getFirstFragment(): Fragment?
 
     protected abstract fun getFragmentContainerId(): Int
 
     override fun getPresenter(): P {
         return mPresenter!!
-    }
-
-    override fun initPresenter(): P {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showMessage(message: String) {
@@ -119,7 +120,7 @@ abstract class BaseActivity<P : ActivityContract.Presenter<*, *>> : FragmentActi
     override fun notifyNetworkChanged() {
         if (!ConnectionHelper.getInstance().isNotified()) {
             if (!ConnectionHelper.getInstance().isOnLine()) {
-
+                // do nothing
             }
         }
     }
